@@ -1,0 +1,25 @@
+# Cloudflare Tunnel 路由示例（cloudflared config.yml）
+# 公网 HTTPS 由 Cloudflare 终结，源站 Nginx 容器只监听 HTTP:80，无需证书。
+# 将 hostname 改为你的隧道域名，service 指向 Nginx 容器可达地址。
+
+tunnel: your-tunnel-id
+credentials-file: /path/to/credentials.json
+
+ingress:
+  - hostname: admin.wangyixiang.xyz
+    service: http://127.0.0.1:80
+  - hostname: seller.wangyixiang.xyz
+    service: http://127.0.0.1:80
+  - hostname: customer.wangyixiang.xyz
+    service: http://127.0.0.1:80
+  # 已有博客等站点继续保留
+  - hostname: wangyixiang.xyz
+    service: http://127.0.0.1:80
+  - hostname: www.wangyixiang.xyz
+    service: http://127.0.0.1:80
+  - service: http_status:404
+
+# 说明：
+# - 若 cloudflared 与 Nginx 同机且 Nginx 使用 host 网络，127.0.0.1:80 即可
+# - 若 Nginx 在独立容器、bridge 网络，改为 http://nginx:80 或映射端口如 http://127.0.0.1:8080
+# - WebSocket：隧道默认支持，Nginx 已配置 /ws/ Upgrade 头

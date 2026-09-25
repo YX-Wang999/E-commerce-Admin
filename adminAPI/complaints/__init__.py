@@ -1,0 +1,1 @@
+"""Complaint dispute handling app."""

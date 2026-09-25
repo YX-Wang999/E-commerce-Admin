@@ -1,0 +1,32 @@
+# Environment
+.env
+.env.*
+deploy/env/frontend-build.env
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# Database
+*.sqlite3
+*.sqlite
+
+# Runtime
+media/
+runtime/
+logs/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+Thumbs.db
+.DS_Store

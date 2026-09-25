@@ -1,0 +1,240 @@
+/**
+ * Global responsive styles — layout-adjacent pages, tables, forms, dialogs.
+ * Breakpoints: xs 576 / sm 768 / md 992 / lg 1200
+ */
+
+/* ---- Card header & filter bar ---- */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.filter-form.el-form--inline .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+.filter-form .search-actions {
+  margin-left: auto;
+}
+
+/* ---- Table horizontal scroll ---- */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-wrap > .el-table {
+  min-width: 720px;
+}
+
+.el-card > .el-card__body:has(> .el-table) {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.el-card > .el-card__body > .el-table {
+  min-width: 720px;
+}
+
+.el-dialog__body:has(> .el-table) {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.el-dialog__body > .el-table {
+  min-width: 560px;
+}
+
+@media (max-width: 767px) {
+  .el-table {
+    font-size: 13px;
+  }
+
+  .el-table .el-table__cell {
+    padding: 8px 0;
+  }
+}
+
+/* Hide secondary columns on tablet */
+@media (max-width: 1199px) {
+  .el-table td.col-hide-md,
+  .el-table th.col-hide-md {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .el-table td.col-hide-sm,
+  .el-table th.col-hide-sm {
+    display: none;
+  }
+}
+
+/* ---- Pagination ---- */
+.pagination {
+  margin-top: 16px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 575px) {
+  .pagination.el-pagination {
+    justify-content: center;
+  }
+
+  .pagination.el-pagination .el-pagination__total {
+    display: none;
+  }
+}
+
+/* ---- Dialog ---- */
+@media (max-width: 991px) {
+  .el-overlay-dialog .el-dialog {
+    width: var(--el-dialog-width, 80%) !important;
+    max-width: calc(100vw - 32px);
+    margin: 6vh auto !important;
+  }
+
+  .el-dialog__body {
+    padding: 16px !important;
+  }
+
+  .el-dialog__body .el-form-item {
+    flex-direction: column;
+  }
+
+  .el-dialog__body .el-form-item .el-form-item__label {
+    justify-content: flex-start;
+    text-align: left;
+    padding-bottom: 4px;
+    height: auto;
+    line-height: 1.4;
+  }
+
+  .el-dialog__footer .el-button {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 575px) {
+  .el-overlay-dialog .el-dialog {
+    width: 95% !important;
+    max-width: none;
+    margin: 4vh auto !important;
+  }
+}
+
+/* ---- Filter bar mobile ---- */
+@media (max-width: 767px) {
+  .filter-form.el-form--inline {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-form .el-form-item {
+    width: 100%;
+    margin-right: 0 !important;
+  }
+
+  .filter-form .el-form-item .el-input,
+  .filter-form .el-form-item .el-select,
+  .filter-form .el-form-item .el-date-editor {
+    width: 100% !important;
+  }
+
+  .filter-form .search-actions {
+    margin-left: 0 !important;
+    display: flex;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .filter-form .search-actions .el-button {
+    flex: 1;
+    min-height: 44px;
+  }
+
+  .filter-form > .el-form-item:last-child {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .filter-form > .el-form-item:last-child .el-button {
+    flex: 1;
+    min-height: 44px;
+  }
+
+  .card-header .el-button {
+    width: 100%;
+    min-height: 44px;
+  }
+}
+
+/* ---- Table actions: keep buttons on one row; compact only on small phones ---- */
+.el-table .col-actions .cell {
+  overflow: visible;
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .table-actions {
+    flex-wrap: wrap;
+    gap: 4px;
+    max-width: none;
+  }
+
+  .table-actions__slot {
+    min-width: auto !important;
+  }
+
+  .table-actions__slot--hide-compact {
+    display: none;
+  }
+
+  .table-actions__more {
+    display: inline-flex !important;
+  }
+}
+
+.table-actions__more {
+  display: none;
+}
+
+/* ---- Dashboard stats ---- */
+.stat-row .el-col {
+  margin-bottom: 16px;
+}
+
+@media (max-width: 575px) {
+  .stat-value {
+    font-size: 20px !important;
+  }
+
+  .chart-box {
+    height: 260px !important;
+  }
+}
+
+/* ---- Touch-friendly primary actions ---- */
+@media (max-width: 991px) {
+  .filter-form .el-button,
+  .card-header .el-button {
+    min-height: 44px;
+  }
+}

@@ -1,0 +1,65 @@
+/* 必须在 vant/lib/index.css 之后引入 */
+
+html {
+  color-scheme: light;
+}
+
+:root,
+body {
+  --van-text-color: #323233;
+  --van-text-color-2: #646566;
+  --van-gray-7: #646566;
+  --van-gray-8: #323233;
+  --van-background-2: #ffffff;
+  --van-dialog-background: #ffffff;
+  --van-dialog-has-title-message-text-color: #646566;
+  --van-dialog-confirm-button-text-color: var(--color-primary, #ff4d4f);
+}
+
+body {
+  color: #323233 !important;
+}
+
+.app-confirm-dialog.van-dialog {
+  background: #ffffff !important;
+  color: #323233 !important;
+}
+
+.van-dialog__header,
+.van-dialog__title,
+.app-confirm-dialog .van-dialog__header {
+  color: #323233 !important;
+}
+
+.van-dialog__message,
+.van-dialog__content,
+.van-dialog__content--isolated,
+.app-confirm-dialog .van-dialog__message {
+  color: #323233 !important;
+}
+
+.van-dialog__message--has-title,
+.app-confirm-dialog .van-dialog__message--has-title {
+  color: #646566 !important;
+}
+
+.van-dialog__footer .van-dialog__cancel,
+.van-dialog__footer .van-button--default,
+.app-confirm-dialog .van-dialog__cancel {
+  color: #646566 !important;
+}
+
+body .app-confirm-dialog__title {
+  color: #323233 !important;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+body .app-confirm-dialog__message {
+  color: #646566 !important;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+}

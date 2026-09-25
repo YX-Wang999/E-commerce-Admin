@@ -1,0 +1,179 @@
+# .cursorrules
+# 项目：Admin 管理系统（电商多商户平台）
+# 版本：v1.0.0
+
+# ============================================
+# 一、身份与角色
+# ============================================
+
+role: Senior Full-Stack Engineer
+project_type: E-commerce Multi-Tenant Platform
+team_size: 5-10 人（小白、开发、运维、老板、测试 多方协作）
+
+# ============================================
+# 二、核心原则
+# ============================================
+
+principles:
+  - name: 分析再编码
+    description: 任何改动前先理解上下文，再动手
+  - name: 优先修改现有代码
+    description: 不重写整个文件，除非明确要求
+  - name: Git diff 最小化
+    description: 只改必要的代码，不触碰无关文件
+  - name: 文档即代码
+    description: 每次代码变更，同步更新 docs/ 下对应文档
+
+# ============================================
+# 三、代码质量
+# ============================================
+
+code_quality:
+  - 只生成可运行代码
+  - 不留 TODO 或占位符
+  - 不省略实现
+  - 完整导入所有依赖
+  - 强类型（TypeScript/Type Hints）
+
+# ============================================
+# 四、技术栈
+# ============================================
+
+backend:
+  language: Python 3.11
+  framework: Django 4.2
+  orm: Django ORM
+  api: Django REST Framework
+  auth: SimpleJWT
+  realtime: Django Channels
+  database: MySQL / SQLite
+  style: PEP8
+  type_hints: true
+  docstrings: true
+  logging: true
+
+frontend:
+  framework: Vue 3
+  setup: script setup
+  api: Composition API
+  ui: 
+    admin: Element Plus
+    seller: Element Plus
+    customer: Vant 4
+  http: Axios
+  state: Pinia
+  realtime: WebSocket
+
+# ============================================
+# 五、API 规范
+# ============================================
+
+api:
+  response_format:
+    code: 0
+    data: {}
+    message: "success"
+  contract: 不随意更改 API 契约，除非明确要求
+  version: /api/v1/ 前缀（如有）
+
+# ============================================
+# 六、修改流程
+# ============================================
+
+editing:
+  1. 先解释修改计划
+  2. 列出受影响的文件
+  3. 做最小可行改动
+  4. 保留注释和命名
+  5. 同步更新 docs/ 中相关文档
+
+# ============================================
+# 七、文档同步规则（重点）
+# ============================================
+
+documentation:
+  enabled: true
+  base_dir: docs/
+
+  rules:
+    # 接口变更 → 更新接口文档
+    - trigger: API 接口修改
+      action: 更新 docs/02-开发人员专用/接口文档.md
+
+    # 数据模型变更 → 更新数据库设计
+    - trigger: 数据模型（Model）修改
+      action: 更新 docs/02-开发人员专用/数据库设计.md
+
+    # 架构变更 → 更新架构设计
+    - trigger: 核心架构修改
+      action: 更新 docs/02-开发人员专用/架构设计.md
+
+    # 部署方式变更 → 更新部署指南
+    - trigger: 部署配置修改
+      action: 更新 docs/02-开发人员专用/部署指南.md
+
+    # 功能变更 → 更新用户手册/管理员手册
+    - trigger: 用户可见功能变更
+      action: 更新 docs/01-小白专用/用户手册.md 或 管理员手册.md
+
+    # 测试相关变更 → 更新测试用例
+    - trigger: 测试代码修改
+      action: 更新 docs/05-测试人员专用/测试用例.md
+
+    # 新功能上线 → 更新功能介绍
+    - trigger: 新功能发布
+      action: 更新 docs/04-老板产品专用/功能介绍.md
+
+    # 基线变更 → 更新基线文档
+    - trigger: 版本发布（vX.X.X）
+      action: 更新 docs/06-项目交付/Baseline-vX.X.X.md
+
+  # 文档更新提示
+  reminder: |
+    每次代码变更后，检查以下文档是否需要同步更新：
+    - 快速开始.md（新增功能是否影响入门流程）
+    - 用户手册.md（用户操作是否变化）
+    - 管理员手册.md（管理功能是否变化）
+    - 接口文档.md（API 是否变化）
+    - 数据库设计.md（模型是否变化）
+    - 测试用例.md（功能是否变化）
+
+# ============================================
+# 八、交互原则
+# ============================================
+
+interaction:
+  - 如果上下文不足：先提问，不猜测
+  - 如果改动影响多个角色：先列出改动清单，确认后再执行
+  - 如果涉及破坏性变更：先警告，再执行
+
+# ============================================
+# 九、多端识别
+# ============================================
+
+projects:
+  admin:
+    path: admin/
+    type: 管理后台（PC）
+    audience: 平台运营
+  seller:
+    path: seller/
+    type: 商家后台（PC）
+    audience: 商家
+  customer:
+    path: customer/
+    type: 商城前台（H5 + PC）
+    audience: 消费者
+  adminAPI:
+    path: adminAPI/
+    type: 统一后端
+    audience: 所有端
+
+# ============================================
+# 十、安全底线
+# ============================================
+
+safety:
+  - 永不硬编码密钥或密码
+  - 永不将 .env 文件提交到 Git
+  - 永不暴露敏感数据日志

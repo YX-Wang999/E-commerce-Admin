@@ -1,0 +1,23 @@
+# E-commerce backend scheduled tasks
+#
+# Install (recommended, /etc/cron.d):
+#   sudo install -m 644 deploy/cron/ecommerce-backend.crontab /etc/cron.d/ecommerce-backend
+#   sudo mkdir -p /var/log/ecommerce
+#   sudo chmod +x /var/www/admin/deploy/scripts/run-scheduled-tasks.sh
+#
+# Or append to root crontab:
+#   sudo crontab -e
+
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+BACKEND_DIR=/var/www/admin/backend
+LOG_DIR=/var/log/ecommerce
+
+# Unpaid orders past expires_at (default 15 min) -> auto cancel
+*/5 * * * * root /var/www/admin/deploy/scripts/run-scheduled-tasks.sh cancel-timeout
+
+# Shipped orders unconfirmed for 15 days -> auto confirm receipt
+30 2 * * * root /var/www/admin/deploy/scripts/run-scheduled-tasks.sh auto-confirm-receipt
+
+# Points expiry reminders and auto-deduction
+0 2 * * * root /var/www/admin/deploy/scripts/run-scheduled-tasks.sh process-points-expiry

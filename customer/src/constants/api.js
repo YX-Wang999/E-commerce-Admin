@@ -1,0 +1,2 @@
+export const LOGIN_REQUIRED_CODE = 10001
+export const EARLY_RECEIPT_CODE = 40901

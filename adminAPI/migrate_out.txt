@@ -1,0 +1,4 @@
+Operations to perform:
+  Apply all migrations: accounts, admin, audit, auth, contenttypes, customers, orders, products, promotion, rbac, sessions, system
+Running migrations:
+  No migrations to apply.

@@ -1,0 +1,1 @@
+"""Approval app signals placeholder."""
