@@ -78,6 +78,19 @@ docs/
 
 ---
 
+## 演示地址
+
+| 端 | 地址 | 
+|:---|:---|
+| 平台后台 | `https://admin.wangyixiang.xyz/` | 
+| 商家端 | `https://seller.wangyixiang.xyz/` | 
+| 商城 | `https://customer.wangyixiang.xyz/` | 
+
+
+
+
+---
+
 ## 相关仓库内文档
 
 | 文件 | 说明 |
