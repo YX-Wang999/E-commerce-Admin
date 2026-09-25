@@ -30,3 +30,7 @@ logs/
 # OS
 Thumbs.db
 .DS_Store
+
+# Playwright
+playwright-report/
+test-results/

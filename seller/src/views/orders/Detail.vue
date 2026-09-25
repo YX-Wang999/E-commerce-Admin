@@ -4,7 +4,9 @@ import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { ElMessage } from 'element-plus'
 import { getExpressCompanies, getOrderDetail, shipOrder, cancelReviewOrder, cancelOrder } from '@/api/orders'
+import { useAuthStore } from '@/stores/auth'
 
+const authStore = useAuthStore()
 const route = useRoute()
 const router = useRouter()
 const { t } = useI18n()
@@ -19,6 +21,7 @@ const shipFormRef = ref(null)
 const merchantCancelFormRef = ref(null)
 const order = ref(null)
 const expressCompanies = ref([])
+const expressCompaniesLoading = ref(true)
 
 const shipForm = reactive({
   express_code: '',
@@ -67,16 +70,22 @@ async function fetchDetail() {
 }
 
 async function loadExpressCompanies() {
+  expressCompaniesLoading.value = true
   try {
     const res = await getExpressCompanies()
     expressCompanies.value = res.data || []
   } catch {
     expressCompanies.value = []
+  } finally {
+    expressCompaniesLoading.value = false
   }
 }
 
 function openShip() {
-  shipForm.express_code = ''
+  const defaultCode = authStore.tenant?.config?.default_express_code
+  shipForm.express_code = expressCompanies.value.some((company) => company.code === defaultCode)
+    ? defaultCode
+    : ''
   shipForm.logistics_no = ''
   shipVisible.value = true
 }
@@ -140,7 +149,7 @@ onMounted(async () => {
       <h2>{{ t('seller.orderDetail') }}</h2>
       <div class="header-actions">
         <el-button v-if="isCanceling" type="warning" @click="reviewVisible = true">{{ t('seller.cancelReview') }}</el-button>
-        <el-button v-if="canShip" type="success" @click="openShip">{{ t('seller.shipOrder') }}</el-button>
+        <el-button v-if="canShip" type="success" :disabled="expressCompaniesLoading" @click="openShip">{{ t('seller.shipOrder') }}</el-button>
         <el-button v-if="canMerchantCancel" type="danger" plain @click="merchantCancelVisible = true">
           {{ t('seller.merchantCancel') }}
         </el-button>

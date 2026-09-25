@@ -4,7 +4,9 @@ import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { ElMessage } from 'element-plus'
 import { getExpressCompanies, getOrderList, shipOrder, cancelReviewOrder, cancelOrder } from '@/api/orders'
+import { useAuthStore } from '@/stores/auth'
 
+const authStore = useAuthStore()
 const router = useRouter()
 const route = useRoute()
 const { t } = useI18n()
@@ -19,6 +21,7 @@ const shipFormRef = ref(null)
 const merchantCancelFormRef = ref(null)
 const tableData = ref([])
 const expressCompanies = ref([])
+const expressCompaniesLoading = ref(true)
 const pagination = reactive({ page: 1, pageSize: 20, total: 0 })
 const filters = reactive({ keyword: '', status: '' })
 
@@ -105,11 +108,14 @@ async function fetchList() {
 }
 
 async function loadExpressCompanies() {
+  expressCompaniesLoading.value = true
   try {
     const res = await getExpressCompanies()
     expressCompanies.value = res.data || []
   } catch {
     expressCompanies.value = []
+  } finally {
+    expressCompaniesLoading.value = false
   }
 }
 
@@ -128,8 +134,11 @@ function openDetail(row) {
 }
 
 function openShip(row) {
+  const defaultCode = authStore.tenant?.config?.default_express_code
   shipForm.orderId = row.id
-  shipForm.express_code = ''
+  shipForm.express_code = expressCompanies.value.some((company) => company.code === defaultCode)
+    ? defaultCode
+    : ''
   shipForm.logistics_no = ''
   shipVisible.value = true
 }
@@ -275,7 +284,7 @@ onMounted(async () => {
           <el-button v-if="isCanceling(row)" type="warning" link @click="openCancelReview(row)">
             {{ t('seller.cancelReview') }}
           </el-button>
-          <el-button v-if="canShip(row)" type="success" link @click="openShip(row)">
+          <el-button v-if="canShip(row)" type="success" link :disabled="expressCompaniesLoading" @click="openShip(row)">
             {{ t('seller.shipOrder') }}
           </el-button>
           <el-button v-if="canMerchantCancel(row)" type="danger" link @click="openMerchantCancel(row)">
