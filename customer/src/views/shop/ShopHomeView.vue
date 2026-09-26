@@ -23,6 +23,7 @@ const page = ref(1)
 const finished = ref(false)
 const loadingMore = ref(false)
 
+
 const tenantId = computed(() => Number(route.params.id))
 
 async function fetchTenant() {
