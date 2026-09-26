@@ -13,6 +13,7 @@ const route = useRoute()
 const router = useRouter()
 const { t } = useI18n()
 
+
 const tenant = ref(null)
 const products = ref([])
 const loading = ref(true)
@@ -108,6 +109,7 @@ onMounted(async () => {
       </van-button>
     </van-empty>
 
+    
     <template v-else-if="tenant">
       <van-notice-bar
         v-if="tenant.closure_state === 'closed' || tenant.status === 'closed'"
